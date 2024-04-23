@@ -18,6 +18,18 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello!")
 }
 
+func formHandler(w, http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		fmt.FprintF(w, "ParseForm() err %v", err)
+		return
+	}
+	fmt.Fprintf(w, "POST request successful")
+	name := r.FormValue("name")
+	address := r.FormValue("address")
+	fmt.Fprintf(w. "Name = %s\n", name)
+	fmt.FprintF(w, "Address = %s\n", address)
+}
+
 func main() {
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer)
